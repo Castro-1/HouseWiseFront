@@ -6,15 +6,13 @@ import {
   BrowserRouter as Router,
   Route,
   Routes,
-  Navigate,
 } from "react-router-dom";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <Router>
       <Routes>
-        <Route path="/" element={<App />} />
-        <Route path="*" element={<Navigate to="/" replace />} />
+        <Route path="/*" element={<App />} />
       </Routes>
     </Router>
   </React.StrictMode>

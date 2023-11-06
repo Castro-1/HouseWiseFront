@@ -1,8 +1,8 @@
 import { useState } from "react";
-import Button from "./components/Button";
-import RoomCanvas from "./components/Room";
-import Input from "./components/inputs/Input";
-import Select from "./components/inputs/Selelct";
+import Button from "../components/Button";
+import RoomCanvas from "../components/Room";
+import Input from "../components/inputs/Input";
+import Select from "../components/inputs/Selelct";
 import axios from "axios";
 
 export default function Home() {
@@ -17,7 +17,8 @@ export default function Home() {
     zip_code: "",
     house_size: "",
     prev_sold_date: ""
-  })
+  });
+  const [result, setResult] = useState(null);
 
   const handleValues = (ev) =>{
     if(values[ev.target.name] === ""){
@@ -49,15 +50,16 @@ export default function Home() {
   }
 
   return <div className="grid grid-cols-3">
+    <h2 className="text-xl mb-5">Fill the form to know the price of your house, as you progress the room will start to light up!</h2>
+    <div className="col-span-2 text-center text-4xl font-bold">Price: {result ? 30000:"?"}</div>
     <div className="grid grid-cols-2 gap-3">
-      <div className="col-span-2 text-lg">Fill the form to know the price of your house!</div>
       <Select id={"Status"} name="status" onChange={handleValues} value={values.status}>
         <option value={0}>For sale</option>
         <option value={1}>Ready to build</option>
       </Select>
-      <Input placeholder="3.0" id={"Bed"} name="bed" onChange={handleValues} value={values.bed}/>
-      <Input placeholder="2.0" id={"Bath"} name="bath" onChange={handleValues} value={values.bath}/>
-      <Input placeholder="0.12" id={"Acre lot"} name="acre_lot" onChange={handleValues} value={values.acre_lot}/>
+      <Input placeholder="3" id={"Bedrooms"} name="bed" onChange={handleValues} value={values.bed}/>
+      <Input placeholder="2" id={"Bathrooms"} name="bath" onChange={handleValues} value={values.bath}/>
+      <Input placeholder="0.12" id={"Land size (acres)"} name="acre_lot" onChange={handleValues} value={values.acre_lot}/>
       <Select id={"City"} name="city" onChange={handleValues} value={values.city}>
         <option value={0}>Miami</option>
         <option value={1}>LA</option>
@@ -85,6 +87,5 @@ export default function Home() {
       </div>
     </div>
     <div className="col-span-2"><RoomCanvas ligthIntensity={ligthIntensity}/></div>
-    <div className="col-span-2"></div>
   </div>;
 }

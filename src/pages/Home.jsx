@@ -4,6 +4,7 @@ import RoomCanvas from "../components/Room";
 import Input from "../components/inputs/Input";
 import Select from "../components/inputs/Selelct";
 import axios from "axios";
+import StarsCanvas from "../components/Stars";
 
 export default function Home() {
   const [ligthIntensity, setLightIntensity] = useState(0.2);
@@ -46,13 +47,13 @@ export default function Home() {
     }
     console.log(data);
     const response = await axios.post("http://127.0.0.1:8000", data);
-    console.log(response);
+    if(response){
+      setResult(response.data)
+    }
   }
 
   return <div className="grid grid-cols-3">
-    <h2 className="text-xl mb-5">Fill the form to know the price of your house, as you progress the room will start to light up!</h2>
-    <div className="col-span-2 text-center text-4xl font-bold">Price: {result ? 30000:"?"}</div>
-    <div className="grid grid-cols-2 gap-3">
+    <div className="grid grid-cols-2 gap-3 border p-8 ml-10 rounded-lg">
       <Select id={"Status"} name="status" onChange={handleValues} value={values.status}>
         <option value={0}>For sale</option>
         <option value={1}>Ready to build</option>
@@ -86,6 +87,9 @@ export default function Home() {
         <Button onClick={handleSubmit}>Calculate</Button>
       </div>
     </div>
-    <div className="col-span-2"><RoomCanvas ligthIntensity={ligthIntensity}/></div>
+    <div className="col-span-2">
+      <RoomCanvas ligthIntensity={ligthIntensity}/>
+    </div>
+    <StarsCanvas />
   </div>;
 }

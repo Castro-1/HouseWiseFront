@@ -3,7 +3,7 @@ import NavBar from "./NavBar";
 
 export default function Layout() {
   return (
-    <div className="p-4">
+    <div >
       <NavBar/>
       <Outlet />
     </div>
